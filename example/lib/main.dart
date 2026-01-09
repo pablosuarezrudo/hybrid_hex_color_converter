@@ -11,19 +11,29 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Hybrid Hex Color Converter Demo',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hybrid Hex Color Converter'),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: _hexColorList(),
+        appBar: AppBar(title: const Text('Hybrid Hex Color Converter')),
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 16,
+              children: [
+                const Text(
+                  'Colors from Hex Strings:',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                _hexColorList(),
+                const Divider(),
+                const Text(
+                  'Hex Strings from Colors:',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                _hexStringList(),
+              ],
             ),
-            const Divider(),
-            Expanded(
-              child: _hexStringList(),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -32,10 +42,14 @@ class MyApp extends StatelessWidget {
   Widget _hexColorList() {
     final colors = getHexColors();
     return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
       itemCount: colors.length,
       itemBuilder: (context, index) {
         final color = colors[index];
         return ListTile(
+          contentPadding: EdgeInsets.zero,
           leading: CircleAvatar(
             backgroundColor: color,
           ),
@@ -48,12 +62,16 @@ class MyApp extends StatelessWidget {
   Widget _hexStringList() {
     final hexStrings = getHexStringColors();
     return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
       itemCount: hexStrings.length,
       itemBuilder: (context, index) {
         final hexString = hexStrings[index];
-        final color = HexColor.fromHex(
+        final color = HybridHexColor.fromHex(
             hexString.startsWith('#') ? hexString : '#$hexString');
         return ListTile(
+          contentPadding: EdgeInsets.zero,
           leading: CircleAvatar(
             backgroundColor: color,
           ),
@@ -65,12 +83,12 @@ class MyApp extends StatelessWidget {
 
   List<Color> getHexColors() {
     return [
-      HexColor.fromHex('#F44336'),
-      HexColor.fromHex('#4CAF50'),
-      HexColor.fromHex('#2196F3'),
-      HexColor.fromHex('#ffffff'),
-      HexColor.fromHex('#000000'),
-      HexColor.fromHex('#E91E63'),
+      HybridHexColor.fromHex('#F44336'),
+      HybridHexColor.fromHex('#4CAF50'),
+      HybridHexColor.fromHex('#2196F3'),
+      HybridHexColor.fromHex('#ffae98'),
+      HybridHexColor.fromHex('#000000'),
+      HybridHexColor.fromHex('#E91E63'),
     ];
   }
 

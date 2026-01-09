@@ -1,8 +1,7 @@
-library hybrid_hex_color_converter;
-
 import 'package:flutter/material.dart';
 
-extension HexColor on Color {
+/// Extension on [Color] to provide conversion methods between hexadecimal strings and Color objects.
+extension HybridHexColor on Color {
   /// Converts a hexadecimal color string to a Flutter [Color] object.
   ///
   /// The [hexString] parameter is the hexadecimal color string to convert. It
@@ -16,7 +15,7 @@ extension HexColor on Color {
   /// returns a default color with the RGB values of 146, 143, and 143.
   ///
   /// Example usage:
-  ///   final color = HybridHexColorConverter.fromHex('#FF0000'); // Red
+  ///   final color = HexColor.fromHex('#FF0000'); // Red
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();
     try {
@@ -31,13 +30,17 @@ extension HexColor on Color {
   /// Converts the current color object to a hexadecimal color string representation.
   ///
   /// The [leadingHashSign] parameter determines whether the resulting string should
-  /// start with a '#' character. If set to `true`, the resulting string will start
-  /// with a '#'. If set to `false`, the resulting string will not start with a '#'.
+  /// start with a '#' character. If set to `true` (default), the resulting string
+  /// will start with a '#'. If set to `false`, the '#' will be omitted.
   ///
   /// Returns a string representing the current color object in hexadecimal format.
-  /// The string will be in the format '#AARRGGBB', where AA is the alpha channel,
-  /// RR is the red channel, GG is the green channel, and BB is the blue channel.
-  /// The alpha channel is optional and defaults to 'FF' if not provided.
+  /// The string will be in the format '#AARRGGBB' or 'AARRGGBB', where:
+  /// - AA is the alpha channel (opacity: 00 = transparent, FF = opaque)
+  /// - RR is the red channel (00 to FF)
+  /// - GG is the green channel (00 to FF)
+  /// - BB is the blue channel (00 to FF)
+  ///
+  /// All four components (alpha, red, green, blue) are always included in the output.
   ///
   /// Example usage:
   ///   final color = Color.fromARGB(128, 255, 0, 0);
@@ -51,4 +54,18 @@ extension HexColor on Color {
       '${(r * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}'
       '${(g * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}'
       '${(b * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}';
+}
+
+/// Deprecated extension - use [HybridHexColor] instead.
+@Deprecated(
+    'Use HybridHexColor instead. This extension will be removed in a future version.')
+extension HexColor on Color {
+  /// Deprecated - use [HybridHexColor.fromHex] instead.
+  @Deprecated('Use HybridHexColor.fromHex() instead')
+  static Color fromHex(String hexString) => HybridHexColor.fromHex(hexString);
+
+  /// Deprecated - use [HybridHexColor.toHex] instead.
+  @Deprecated('Use color.toHex() from HybridHexColor extension instead')
+  String toHexDeprecated({bool leadingHashSign = true}) =>
+      toHex(leadingHashSign: leadingHashSign);
 }
