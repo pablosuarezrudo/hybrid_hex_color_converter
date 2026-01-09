@@ -4,7 +4,7 @@
 
 A useful tool for working with hexadecimal colors in Flutter. This package provides an extension called `HybridHexColor` that can be used on Color objects in Flutter.
 
-## What's New in 0.0.3
+## What's New in 0.0.4
 
 - Fixed deprecated Color properties for better compatibility with latest Flutter versions
 - Updated to use non-deprecated getters (`a`, `r`, `g`, `b` instead of `alpha`, `red`, `green`, `blue`)
