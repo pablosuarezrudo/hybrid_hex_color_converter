@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Update readme file
+
 ## 0.0.3
 
 * Fixed deprecated Color properties:
