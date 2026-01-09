@@ -47,8 +47,8 @@ extension HexColor on Color {
   ///   final hexString = color.toHex(leadingHashSign: false); // 'FF00FF00'
   ///
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
-      '${alpha.toRadixString(16).padLeft(2, '0').toUpperCase()}'
-      '${red.toRadixString(16).padLeft(2, '0').toUpperCase()}'
-      '${green.toRadixString(16).padLeft(2, '0').toUpperCase()}'
-      '${blue.toRadixString(16).padLeft(2, '0').toUpperCase()}';
+      '${(a * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}'
+      '${(r * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}'
+      '${(g * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}'
+      '${(b * 255).toInt().toRadixString(16).padLeft(2, '0').toUpperCase()}';
 }

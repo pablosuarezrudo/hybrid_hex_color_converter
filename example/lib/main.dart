@@ -1,37 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:hybrid_hex_color_converter/hybrid_hex_color_converter.dart';
 
-void main() {
-  /// Test to see the conversion from hex to color
-  Color redColor = HexColor.fromHex('#F44336');
-  Color greenColor = HexColor.fromHex('#4CAF50');
-  Color blueColor = HexColor.fromHex('#2196F3');
-  Color whiteColor = HexColor.fromHex('#ffffff');
-  Color blackColor = HexColor.fromHex('#000000');
-  Color pinkColor = HexColor.fromHex('#E91E63');
+void main() => runApp(const MyApp());
 
-  print(redColor);
-  print(greenColor);
-  print(blueColor);
-  print(whiteColor);
-  print(blackColor);
-  print(pinkColor);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  ///Conversion withouth hash sign
-  String blueString = Colors.blue.toHex(leadingHashSign: false);
-  String redString = Colors.red.toHex(leadingHashSign: false);
-  String purpleString = Colors.purple.toHex(leadingHashSign: false);
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Hybrid Hex Color Converter Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Hybrid Hex Color Converter'),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: _hexColorList(),
+            ),
+            const Divider(),
+            Expanded(
+              child: _hexStringList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-  print(blueString);
-  print(redString);
-  print(purpleString);
+  Widget _hexColorList() {
+    final colors = getHexColors();
+    return ListView.builder(
+      itemCount: colors.length,
+      itemBuilder: (context, index) {
+        final color = colors[index];
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundColor: color,
+          ),
+          title: Text(color.toHex()),
+        );
+      },
+    );
+  }
 
-  /// Conversion with hash sign
-  String greenWithHash = Colors.green.toHex();
-  String orangeWithHash = Colors.orange.toHex();
-  String pinkWithHash = Colors.pink.toHex();
+  Widget _hexStringList() {
+    final hexStrings = getHexStringColors();
+    return ListView.builder(
+      itemCount: hexStrings.length,
+      itemBuilder: (context, index) {
+        final hexString = hexStrings[index];
+        final color = HexColor.fromHex(
+            hexString.startsWith('#') ? hexString : '#$hexString');
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundColor: color,
+          ),
+          title: Text(hexString),
+        );
+      },
+    );
+  }
 
-  print(greenWithHash);
-  print(orangeWithHash);
-  print(pinkWithHash);
+  List<Color> getHexColors() {
+    return [
+      HexColor.fromHex('#F44336'),
+      HexColor.fromHex('#4CAF50'),
+      HexColor.fromHex('#2196F3'),
+      HexColor.fromHex('#ffffff'),
+      HexColor.fromHex('#000000'),
+      HexColor.fromHex('#E91E63'),
+    ];
+  }
+
+  List<String> getHexStringColors() {
+    return [
+      Colors.blue.toHex(leadingHashSign: false),
+      Colors.red.toHex(leadingHashSign: false),
+      Colors.purple.toHex(leadingHashSign: false),
+      Colors.green.toHex(),
+      Colors.orange.toHex(),
+      Colors.pink.toHex(),
+    ];
+  }
 }

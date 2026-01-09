@@ -7,12 +7,18 @@ void main() {
   group('HexColor', () {
     /// Test to see the conversion from hex to color
     test('fromHex should convert hex string to Color', () {
-      expect(HexColor.fromHex('#F44336').value, equals(Colors.red.value));
-      expect(HexColor.fromHex('#4CAF50').value, equals(Colors.green.value));
-      expect(HexColor.fromHex('#2196F3').value, equals(Colors.blue.value));
-      expect(HexColor.fromHex('#ffffff').value, equals(Colors.white.value));
-      expect(HexColor.fromHex('#000000').value, equals(Colors.black.value));
-      expect(HexColor.fromHex('#E91E63').value, equals(Colors.pink.value));
+      expect(HexColor.fromHex('#F44336')..toARGB32(),
+          equals(Colors.red..toARGB32()));
+      expect(HexColor.fromHex('#4CAF50')..toARGB32(),
+          equals(Colors.green..toARGB32()));
+      expect(HexColor.fromHex('#2196F3')..toARGB32(),
+          equals(Colors.blue..toARGB32()));
+      expect(HexColor.fromHex('#ffffff')..toARGB32(),
+          equals(Colors.white..toARGB32()));
+      expect(HexColor.fromHex('#000000')..toARGB32(),
+          equals(Colors.black..toARGB32()));
+      expect(HexColor.fromHex('#E91E63')..toARGB32(),
+          equals(Colors.pink..toARGB32()));
     });
 
     /// Test to see the conversion withouth hash sign
